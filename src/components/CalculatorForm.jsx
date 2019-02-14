@@ -1,4 +1,6 @@
 import React from 'react'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import CalculationService from '../services/CalculationService';
 
 export default class CalculatorForm extends React.Component {
@@ -44,39 +46,39 @@ export default class CalculatorForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div className="form-group">
-          <label>Current Marginal Tax Rate (%):</label>
-          <input type="text" className="form-control" name="currentMarginalTaxRate" value={this.state.currentMarginalTaxRate} onChange={this.onChange} />
-        </div>
+      <Form onSubmit={this.handleSubmit}>
+        <Form.Group>
+          <Form.Label>Current Marginal Tax Rate (%):</Form.Label>
+          <Form.Control size="sm" type="text" name="currentMarginalTaxRate" value={this.state.currentMarginalTaxRate} onChange={this.onChange} />
+        </Form.Group>
 
-        <div className="form-group">
-          <label>Future Marginal Tax Rate (%):</label>
-          <input type="text" className="form-control" name="futureMarginalTaxRate" value={this.state.futureMarginalTaxRate} onChange={this.onChange} />
-        </div>
+        <Form.Group>
+          <Form.Label>Future Marginal Tax Rate (%):</Form.Label>
+          <Form.Control size="sm" type="text" name="futureMarginalTaxRate" value={this.state.futureMarginalTaxRate} onChange={this.onChange} />
+        </Form.Group>
 
-        <div className="form-group">
-          <label>Principal ($):</label>
-          <input type="text" className="form-control" name="principal" value={this.state.principal} onChange={this.onChange} />
-        </div>
+        <Form.Group>
+          <Form.Label>Principal ($):</Form.Label>
+          <Form.Control size="sm" type="text" name="principal" value={this.state.principal} onChange={this.onChange} />
+        </Form.Group>
 
-        <div className="form-group">
-          <label>Duration (years):</label>
-          <input type="text" className="form-control" name="duration" value={this.state.duration} onChange={this.onChange} />
-        </div>
+        <Form.Group>
+          <Form.Label>Duration (years):</Form.Label>
+          <Form.Control size="sm" type="text" name="duration" value={this.state.duration} onChange={this.onChange} />
+        </Form.Group>
 
-        <div className="form-group">
-          <label>Return on Investment Rate (%):</label>
-          <input type="text" className="form-control" name="returnRate" value={this.state.returnRate} onChange={this.onChange} />
-        </div>
+        <Form.Group>
+          <Form.Label>Return on Investment Rate (%):</Form.Label>
+          <Form.Control size="sm" type="text" name="returnRate" value={this.state.returnRate} onChange={this.onChange} />
+        </Form.Group>
 
-        <div className="form-group">
-          <label>Inflation Rate (%):</label>
-          <input type="text" className="form-control" name="inflationRate" value={this.state.inflationRate} onChange={this.onChange} />
-        </div>
+        <Form.Group>
+          <Form.Label>Inflation Rate (%):</Form.Label>
+          <Form.Control size="sm" type="text" className="form-control" name="inflationRate" value={this.state.inflationRate} onChange={this.onChange} />
+        </Form.Group>
 
-        <input type="submit" value="Submit" />
-      </form>
+        <Button variant="primary" type="submit">Submit</Button>
+      </Form>
     );
   }
 }

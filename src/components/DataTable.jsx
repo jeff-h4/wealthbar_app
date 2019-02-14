@@ -1,4 +1,5 @@
 import React from 'react'
+import Table from 'react-bootstrap/Table';
 
 export default class DataTable extends React.Component {
   constructor(props) {
@@ -57,7 +58,7 @@ export default class DataTable extends React.Component {
     console.log('Table Data is');
     console.log(tableData);
     return (
-      <table className="table">
+      <Table striped>
         {this.renderTableHeader()}
         <tbody>
           {this.renderRow(1,tableData.finalValue)}
@@ -65,7 +66,7 @@ export default class DataTable extends React.Component {
           {this.renderRow(3,tableData.taxOnWithdrawal)}
           {this.renderRow(4,tableData.afterTaxFutureValue)}
         </tbody>
-      </table>
+      </Table>
     );
   }
 }
