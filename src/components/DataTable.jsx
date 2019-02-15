@@ -32,21 +32,21 @@ export default class DataTable extends React.Component {
 
   formatTableData(inputData) {
     return {
-      finalValue: {
-        header: 'Nominal Final Value',
-        values: [inputData.tfsaResult.nominalEndValue, inputData.rrspResult.nominalEndValue]
+      startingValue: {
+        header: 'Initial Account Deposit',
+        values: [inputData.tfsaResult.startingValue.toFixed(2), inputData.rrspResult.startingValue.toFixed(2)]
       },
       futureValue: {
         header: 'Future Value',
-        values: [inputData.tfsaResult.futureValue, inputData.rrspResult.futureValue]
+        values: [inputData.tfsaResult.futureValue.toFixed(2), inputData.rrspResult.futureValue.toFixed(2)]
       },
       taxOnWithdrawal: {
         header: 'Tax on Withdrawal',
-        values: [inputData.tfsaResult.taxOnWithdrawal, inputData.rrspResult.taxOnWithdrawal]
+        values: [inputData.tfsaResult.taxOnWithdrawal.toFixed(2), inputData.rrspResult.taxOnWithdrawal.toFixed(2)]
       },
       afterTaxFutureValue: {
         header: 'After Tax Future Value',
-        values: [inputData.tfsaResult.afterTaxFutureValue, inputData.rrspResult.afterTaxFutureValue]
+        values: [inputData.tfsaResult.afterTaxFutureValue.toFixed(2), inputData.rrspResult.afterTaxFutureValue.toFixed(2)]
       }
     }
   }
@@ -61,7 +61,7 @@ export default class DataTable extends React.Component {
       <Table striped>
         {this.renderTableHeader()}
         <tbody>
-          {this.renderRow(1,tableData.finalValue)}
+          {this.renderRow(1,tableData.startingValue)}
           {this.renderRow(2,tableData.futureValue)}
           {this.renderRow(3,tableData.taxOnWithdrawal)}
           {this.renderRow(4,tableData.afterTaxFutureValue)}

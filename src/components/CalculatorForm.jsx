@@ -10,9 +10,9 @@ export default class CalculatorForm extends React.Component {
       currentMarginalTaxRate: 38.29,
       futureMarginalTaxRate: 20.64,
       principal: 1000,
-      duration: 2,
-      returnRate: 5,
-      inflationRate: 2,
+      duration: 30,
+      returnRate: 6.5,
+      inflationRate: 2.5,
     };
 
     this.onChange     = this.onChange.bind(this);
@@ -39,9 +39,10 @@ export default class CalculatorForm extends React.Component {
       returnRate:             this.state.returnRate,
       inflationRate:          this.state.inflationRate
     };
-    let result = CalculationService.calculate(params);
+    let tfsaResult = CalculationService.calculateTfsaPerformance(params);
+    let rrspResult = CalculationService.calculateRrspPerformance(params);
 
-    this.props.onChange(result);
+    this.props.onChange({tfsaResult, rrspResult});
   }
 
   render() {

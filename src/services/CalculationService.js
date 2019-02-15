@@ -1,25 +1,32 @@
 import AccountProjection from '../objects/AccountProjection';
 
 const CalculationService = {
-  calculate
+  calculateTfsaPerformance,
+  calculateRrspPerformance
 };
 export default CalculationService;
 
-function calculate(params) {
-  let tfsa = calculateTFSAGrowth(Object.assign({}, params));
-  let rrsp = calculateRRSPGrowth(Object.assign({}, params));
-  let tfsaResult = calculateTfsaWithdrawal(tfsa);
-  let rrspResult = calculateRrspWithdrawal(rrsp, params.futureMarginalTaxRate);
-  return {tfsaResult, rrspResult};
+function calculateTfsaPerformance(params) {
+  let projections = calculateAccountGrowth(Object.assign({}, params));
+  let result = calculateTfsaWithdrawal(projections);
+  return result;
+}
+
+function calculateRrspPerformance(params) {
+  params.deposit = undoInitialMarginalTax(params);
+  let projections = calculateAccountGrowth(params);
+  let result = calculateRrspWithdrawal(projections, params.futureMarginalTaxRate);
+  return result;
 }
 
 function calculateTfsaWithdrawal(projections) {
-  let finalReadableReport = projections[projections.length-1].getReadableReport();
+  let finalReport = projections[projections.length-1].getReport();
+  console.log(finalReport);
   return {
-    nominalEndValue:     finalReadableReport.nominalEndValue,
-    futureValue:         finalReadableReport.futureEndValue,
-    taxOnWithdrawal:     0,
-    afterTaxFutureValue: finalReadableReport.futureEndValue
+    startingValue:        projections[0].startingValue,
+    futureValue:          finalReport.futureEndValue,
+    taxOnWithdrawal:      0,
+    afterTaxFutureValue:  finalReport.futureEndValue
   };
 }
 
@@ -27,23 +34,15 @@ function calculateRrspWithdrawal(projections, futureTaxRate) {
   let finalReport = projections[projections.length-1].getReport();
   let taxOnWithdrawal = finalReport.futureEndValue * futureTaxRate / 100;
   return {
-    nominalEndValue:     finalReport.nominalEndValue.toFixed(2),
-    futureValue:         finalReport.futureEndValue.toFixed(2),
-    taxOnWithdrawal:     taxOnWithdrawal.toFixed(2),
-    afterTaxFutureValue: (finalReport.futureEndValue - taxOnWithdrawal).toFixed(2)
+    startingValue:       projections[0].startingValue,
+    futureValue:         finalReport.futureEndValue,
+    taxOnWithdrawal:     taxOnWithdrawal,
+    afterTaxFutureValue: (finalReport.futureEndValue - taxOnWithdrawal)
   };
 }
 
 function undoInitialMarginalTax(params) {
   return params.deposit / (100 - params.currentMarginalTaxRate) * 100;
-}
-
-function calculateRRSPGrowth(params) {
-  params.deposit = undoInitialMarginalTax(params);
-  return calculateAccountGrowth(params);
-}
-function calculateTFSAGrowth(params) {
-  return calculateAccountGrowth(params);
 }
 
 function calculateAccountGrowth(params) {
