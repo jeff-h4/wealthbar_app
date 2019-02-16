@@ -1,6 +1,7 @@
 import React from 'react'
-import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import debounce from 'lodash/debounce';
+
 import CalculationService from '../services/CalculationService';
 
 export default class CalculatorForm extends React.Component {
@@ -16,18 +17,21 @@ export default class CalculatorForm extends React.Component {
     };
 
     this.onChange     = this.onChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.recalculate  = debounce(this.recalculate, 200);
+  }
+
+  componentDidMount() {
+    this.recalculate();
   }
 
   onChange(event) {
     let floatVal = parseFloat(event.target.value);
     if (isNaN(floatVal) || floatVal < 0) return;
     this.setState({[event.target.name]: floatVal});
+    this.recalculate();
   }
 
-  handleSubmit(event) {
-    console.log('The form was submitted');
-    event.preventDefault();
+  recalculate() {
     let params = {
       currentMarginalTaxRate: this.state.currentMarginalTaxRate,
       futureMarginalTaxRate:  this.state.futureMarginalTaxRate,
@@ -44,7 +48,7 @@ export default class CalculatorForm extends React.Component {
 
   render() {
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form>
         <Form.Group>
           <Form.Label>Current Marginal Tax Rate (%):</Form.Label>
           <Form.Control
@@ -104,8 +108,6 @@ export default class CalculatorForm extends React.Component {
             value={this.state.inflationRate}
             onChange={this.onChange} />
         </Form.Group>
-
-        <Button variant="primary" type="submit">Submit</Button>
       </Form>
     );
   }
