@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import './App.css';
 import CalculatorForm from './components/CalculatorForm';
 import DataTable from './components/DataTable';
+import Instructions from './components/Instructions';
 
 class App extends Component {
   constructor(props) {
@@ -32,7 +33,12 @@ class App extends Component {
               <CalculatorForm onChange={this.onChange}/>
             </Col>
             <Col sm={8}>
-              <DataTable data={this.state.data}/>
+              <Row>
+                <Instructions />
+              </Row>
+              <Row>
+                <DataTable data={this.state.data}/>
+              </Row>
             </Col>
           </Row>
         </Container>
