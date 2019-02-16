@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataTable renders datatable if data passed in 1`] = `
+<table
+  className="table table-striped"
+>
+  <thead>
+    <tr>
+      <th />
+      <th>
+        TFSA
+      </th>
+      <th>
+        RRSP
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>
+        Initial Account Deposit
+      </th>
+      <td>
+        100.00
+      </td>
+      <td>
+        100.00
+      </td>
+    </tr>
+    <tr>
+      <th>
+        Future Value
+      </th>
+      <td>
+        200.00
+      </td>
+      <td>
+        200.00
+      </td>
+    </tr>
+    <tr>
+      <th>
+        Tax on Withdrawal
+      </th>
+      <td>
+        0.00
+      </td>
+      <td>
+        20.00
+      </td>
+    </tr>
+    <tr>
+      <th>
+        After Tax Future Value
+      </th>
+      <td>
+        200.00
+      </td>
+      <td>
+        180.00
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`DataTable renders null if no data passed in 1`] = `null`;

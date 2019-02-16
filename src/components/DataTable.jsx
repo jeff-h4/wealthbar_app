@@ -23,9 +23,9 @@ export default class DataTable extends React.Component {
 
   renderRow(key, rowData) {
     return (
-      <tr key={key}>
+      <tr>
         <th>{rowData.header}</th>
-        {rowData.values.map((entry) => <td>{entry}</td>)}
+        {rowData.values.map((entry, index) => <td key={index}>{entry}</td>)}
       </tr>
     )
   }
@@ -55,8 +55,6 @@ export default class DataTable extends React.Component {
     if (this.props.data === null) return null;
 
     let tableData = this.formatTableData(this.props.data);
-    console.log('Table Data is');
-    console.log(tableData);
     return (
       <Table striped>
         {this.renderTableHeader()}
