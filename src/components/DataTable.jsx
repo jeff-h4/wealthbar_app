@@ -8,6 +8,7 @@ export default class DataTable extends React.Component {
     this.renderTableHeader = this.renderTableHeader.bind(this);
     this.renderRow         = this.renderRow.bind(this);
     this.formatTableData   = this.formatTableData.bind(this);
+    this.extractValues     = this.extractValues.bind(this);
   }
 
   renderTableHeader() {
@@ -31,23 +32,27 @@ export default class DataTable extends React.Component {
     )
   }
 
+  extractValues(data, targetValue) {
+    return Object.keys(data).map(k => data[k][targetValue]);
+  }
+
   formatTableData(inputData) {
     return {
       startingValue: {
         header: 'Initial Account Deposit',
-        values: [inputData.tfsaResult.startingValue.toFixed(2), inputData.rrspResult.startingValue.toFixed(2)]
+        values: this.extractValues(inputData,'startingValue').map(x => x.toFixed(2))
       },
       futureValue: {
         header: 'Future Value',
-        values: [inputData.tfsaResult.futureValue.toFixed(2), inputData.rrspResult.futureValue.toFixed(2)]
+        values: this.extractValues(inputData,'futureValue').map(x => x.toFixed(2))
       },
       taxOnWithdrawal: {
         header: 'Tax on Withdrawal',
-        values: [inputData.tfsaResult.taxOnWithdrawal.toFixed(2), inputData.rrspResult.taxOnWithdrawal.toFixed(2)]
+        values: this.extractValues(inputData,'taxOnWithdrawal').map(x => x.toFixed(2))
       },
       afterTaxFutureValue: {
         header: 'After Tax Future Value',
-        values: [inputData.tfsaResult.afterTaxFutureValue.toFixed(2), inputData.rrspResult.afterTaxFutureValue.toFixed(2)]
+        values: this.extractValues(inputData,'afterTaxFutureValue').map(x => x.toFixed(2))
       }
     }
   }
@@ -60,10 +65,10 @@ export default class DataTable extends React.Component {
       <Table striped>
         {this.renderTableHeader()}
         <tbody>
-          {this.renderRow(1,tableData.startingValue)}
-          {this.renderRow(2,tableData.futureValue)}
-          {this.renderRow(3,tableData.taxOnWithdrawal)}
-          {this.renderRow(4,tableData.afterTaxFutureValue)}
+          {this.renderRow(1, tableData.startingValue)}
+          {this.renderRow(2, tableData.futureValue)}
+          {this.renderRow(3, tableData.taxOnWithdrawal)}
+          {this.renderRow(4, tableData.afterTaxFutureValue)}
         </tbody>
       </Table>
     );
