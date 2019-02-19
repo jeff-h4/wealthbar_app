@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import Table from 'react-bootstrap/Table';
 
 export default class DataTable extends React.Component {
@@ -69,3 +70,9 @@ export default class DataTable extends React.Component {
   }
 }
 
+DataTable.propTypes = {
+  data: PropTypes.shape({
+    tfsaResult: PropTypes.object,
+    rrspResult: PropTypes.object
+  })
+}

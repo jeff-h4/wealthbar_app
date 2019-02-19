@@ -21,7 +21,6 @@ function calculateRrspPerformance(params) {
 
 function calculateTfsaWithdrawal(projections) {
   let finalReport = projections[projections.length-1].getReport();
-  console.log(finalReport);
   return {
     startingValue:        projections[0].startingValue,
     futureValue:          finalReport.futureEndValue,
@@ -47,7 +46,6 @@ function undoInitialMarginalTax(params) {
 
 function calculateAccountGrowth(params) {
   let projections = [];
-  console.log(params);
   for (let p = 0; p < params.duration; p++) {
     let inputParams = {
       startingValue:  (p === 0) ? params.deposit : projections[p-1].getReport().futureEndValue,

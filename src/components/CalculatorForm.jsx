@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import debounce from 'lodash/debounce';
 
@@ -113,3 +114,6 @@ export default class CalculatorForm extends React.Component {
   }
 }
 
+CalculatorForm.propTypes = {
+  onChange: PropTypes.func.isRequired
+}
